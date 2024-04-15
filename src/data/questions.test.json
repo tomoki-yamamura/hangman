@@ -1,0 +1,8 @@
+[
+  { "word": "number", "hint": "The basic type representing a numerical value" },
+  { "word": "any", "hint": "A type indicating that any type is acceptable" },
+  {
+    "word": "void",
+    "hint": "A type indicating that a function does not return any value"
+  }
+]
