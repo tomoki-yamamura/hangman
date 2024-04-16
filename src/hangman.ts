@@ -1,5 +1,9 @@
 import rawData from "./data/questions.test.json";
 import readlinePromiss from "readline/promises"
+import chalk from "chalk";
+import figlet from "figlet"
+
+type Color = "red" | "green" | "yellow" | "white";
 
 interface Question {
   word: string;
@@ -12,8 +16,8 @@ interface UserInterface {
   input(): Promise<string>;
   clear(): void;
   destroy(): void;
-  // output(message: string, color?: Color): void;
-  // outputAnswer(message: string): void;
+  output(message: string, color?: Color): void;
+  outputAnswer(message: string): void;
 }
 
 const rl = readlinePromiss.createInterface({
@@ -33,6 +37,14 @@ const CLI: UserInterface = {
 
   destroy() {
     rl.close()
+  },
+
+  output(message: string, color: Color = "white") {
+    console.log(chalk[color](message), "\n");
+  },
+
+  outputAnswer(message: string) {
+    console.log(figlet.textSync(message, { font: "Big"}), "\n");
   }
 }
 
