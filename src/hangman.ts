@@ -1,4 +1,5 @@
 import rawData from "./data/questions.test.json";
+import readlinePromiss from "readline/promises"
 
 interface Question {
   word: string;
@@ -6,6 +7,43 @@ interface Question {
 }
 
 const questions: Question[] = rawData;
+
+interface UserInterface {
+  input(): Promise<string>;
+  clear(): void;
+  destroy(): void;
+  // output(message: string, color?: Color): void;
+  // outputAnswer(message: string): void;
+}
+
+const rl = readlinePromiss.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+})
+
+const CLI: UserInterface = {
+  async input() {
+    const input = await rl.question("Guess the word or letter: ");
+    return input.replaceAll(" ","").toLowerCase();
+  },
+
+  clear() {
+    console.clear();
+  },
+
+  destroy() {
+    rl.close()
+  }
+}
+
+async function testQuestion() {
+  CLI.clear();
+  const userinput = await CLI.input()
+  console.log(userinput);
+  CLI.destroy()
+}
+
+testQuestion();
 
 class Quiz {
   questions: Question[];
